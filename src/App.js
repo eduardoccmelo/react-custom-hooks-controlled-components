@@ -2,14 +2,6 @@ import "./App.css";
 import { useState } from "react";
 
 function App() {
-  // Add states and eventHandlers here
-  // const [user, setUser] = useState({
-  //   firstName: { name },
-  //   lastName: surname,
-  //   age: age,
-  //   email: email,
-  //   newsletter: check,
-  // });
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [age, setAge] = useState("");
