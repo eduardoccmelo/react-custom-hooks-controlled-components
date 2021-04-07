@@ -5,18 +5,31 @@ function App() {
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
-    age: 0,
+    age: 18,
     email: "",
     newsletter: false,
   });
 
   function handleChange(event) {
-    const { value, name } = event.target;
-    console.log(`${name}: ${value}`);
+    const { value, name, type, checked } = event.target;
+    if (type === "number") {
+      if (value < 18) {
+        alert("you must have more than 18 years old");
+        setUserData({ ...userData, [name]: userData.age });
+      } else {
+        setUserData({ ...userData, [name]: Number(value) });
+      }
+    } else if (type === "text" || type === "email") {
+      setUserData({ ...userData, [name]: value });
+    } else if (type === "checkbox") {
+      setUserData({ ...userData, [name]: checked });
+    }
+    // console.log(`${name}: ${value}`);
   }
 
   function handleSubmit(event) {
     event.preventDefault();
+    console.log(userData);
     console.log("submitted");
   }
 
@@ -26,19 +39,52 @@ function App() {
       <h2>Enter user credentials below:</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="firstName">Name:</label>
-        <input type="text" name="firstName" />
+        <input
+          value={userData.firstName}
+          onChange={handleChange}
+          type="text"
+          name="firstName"
+          required
+        />
         <label htmlFor="lastName">Surname:</label>
-        <input type="text" name="lastName" />
+        <input
+          value={userData.lastName}
+          onChange={handleChange}
+          type="text"
+          maxLength="20"
+          name="lastName"
+          required
+        />
         <label htmlFor="age">Age:</label>
-        <input type="number" name="age" />
+        <input
+          value={userData.age}
+          onChange={handleChange}
+          type="number"
+          name="age"
+          required
+        />
         <label htmlFor="email">Email:</label>
-        <input type="email" name="email" />
+        <input
+          value={userData.email}
+          onChange={handleChange}
+          type="email"
+          name="email"
+          required
+        />
         <div className="newsletter">
-          <input type="checkbox" name="newsletter" />
+          <input
+            value={userData.newsletter}
+            onChange={handleChange}
+            type="checkbox"
+            name="newsletter"
+            checked={userData.newsletter}
+            required
+          />
           <label htmlFor="newsletter">
             Yes, I would like many more emails!
           </label>
         </div>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
