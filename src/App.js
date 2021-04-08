@@ -5,7 +5,7 @@ function App() {
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
-    age: 18,
+    age: "",
     email: "",
     newsletter: false,
   });
@@ -13,12 +13,8 @@ function App() {
   function handleChange(event) {
     const { value, name, type, checked } = event.target;
     if (type === "number") {
-      if (value < 18) {
-        alert("you must have more than 18 years old");
-        setUserData({ ...userData, [name]: userData.age });
-      } else {
-        setUserData({ ...userData, [name]: Number(value) });
-      }
+      setUserData({ ...userData, [name]: Number(value) });
+      // }
     } else if (type === "text" || type === "email") {
       setUserData({ ...userData, [name]: value });
     } else if (type === "checkbox") {
@@ -29,8 +25,19 @@ function App() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(userData);
-    console.log("submitted");
+    if (userData.age < 18) {
+      alert("you must have more than 18 years old");
+    } else {
+      console.log(userData);
+      console.log("submitted");
+      setUserData({
+        firstName: "",
+        lastName: "",
+        age: "",
+        email: "",
+        newsletter: false,
+      });
+    }
   }
 
   return (
